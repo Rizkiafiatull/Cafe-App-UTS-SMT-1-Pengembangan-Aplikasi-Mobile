@@ -26,7 +26,9 @@ void main() {
 
     expect(find.text('Habis'), findsOneWidget);
     expect(
-      tester.widget<AnimatedOpacity>(find.byType(AnimatedOpacity).first).opacity,
+      tester
+          .widget<AnimatedOpacity>(find.byType(AnimatedOpacity).first)
+          .opacity,
       0.4,
     );
   });

@@ -1,36 +1,40 @@
-# Katalog Menu
+# Soal UTS Praktik
 
-Aplikasi Flutter sederhana untuk katalog sepuluh menu, status ketersediaan, dan
-transisi Hero menuju halaman detail.
+## Pengembangan Aplikasi Mobile
 
-## Menjalankan aplikasi
+**Materi:** Opacity & BoxDecoration, Radial Animation, dan Performance
 
-Jika platform runner belum tersedia, buat runner Android/iOS dari direktori
-proyek dengan `flutter create --platforms android,ios .`.
+1. **BoxDecoration**
+   - Buat widget `MenuCard` dengan atribut `nama`, `harga`, dan `tersedia`.
+   - Dekorasi menggunakan satu `BoxDecoration` yang berisi `LinearGradient`, `borderRadius: 20`, `border`, dan `boxShadow`.
+   - Tempatkan ikon di dalam lingkaran menggunakan `BoxShape.circle`.
 
-```shell
-flutter pub get
-flutter run
-```
+2. **Opacity**
+   - Saat kartu ditekan lama, ubah status ketersediaan menu.
+   - Jika menu habis, tampilkan kartu secara transparan dengan `Opacity: 0.4` menggunakan `AnimatedOpacity` selama 400 ms.
+   - Tambahkan label **Habis**.
 
-Tekan lama kartu untuk mengganti status tersedia/habis. Ketuk kartu untuk
-membuka detail. Jalankan pengujian widget dengan `flutter test`.
+3. **Daftar Menu**
+   - Tampilkan 10 menu pada `KatalogPage` menggunakan `ListView.builder`.
+   - Kartu yang masih tersedia tidak boleh dibungkus oleh widget `Opacity`.
 
-## Pengukuran performa
+4. **Radial Hero**
+   - Saat kartu ditekan, tampilkan `DetailPage`.
+   - Lingkaran ikon harus bertransformasi bertahap menjadi persegi berukuran besar menggunakan:
+     - `Hero`
+     - `ClipRRect` dengan radius yang diinterpolasi
+     - `createRectTween` dengan lintasan melengkung
+     - Durasi 600 ms
 
-Belum ada hasil pengukuran DevTools yang direkam: proyek ini dibuat di
-lingkungan tanpa Flutter SDK, emulator, atau perangkat terhubung. Untuk membuat
-perbandingan yang valid, jalankan aplikasi pada perangkat yang sama dengan
-`flutter run --profile`, buka DevTools, lalu rekam frame raster/UI pada skenario
-scroll katalog dan animasi yang sama. Catat median dan persentil ke-90 frame
-build/raster serta jumlah frame yang melewati batas 16,7 ms.
+5. **Radial Berputar**
+   - Pada header `KatalogPage`, tampilkan ikon cangkir yang berputar terus-menerus.
+   - Gunakan `AnimationController`, `Transform.rotate`, dan rentang rotasi dari `0` sampai `2π`.
+   - Gunakan `AnimatedBuilder` dengan parameter `child` dan `RepaintBoundary`.
+   - Panggil `dispose()` pada controller.
 
-| Versi | Hasil pengukuran |
-|---|---|
-| Sebelum optimasi | Belum diukur; tidak ada baseline yang tersedia. |
-| Sesudah optimasi | Belum diukur; perlu dijalankan di perangkat dalam profile mode. |
+6. **Performa**
+   - Terapkan `const` pada widget yang memungkinkan.
 
-Optimasi yang disiapkan di implementasi ini meliputi `const` pada widget statis,
-child statis pada `AnimatedBuilder`, dan `RepaintBoundary` pada ikon berputar.
-Karena baseline dan pengukuran perangkat belum tersedia, tidak ada klaim angka
-atau peningkatan frame rate yang dibuat.
+7. **Laporan**
+   - Ukur performa aplikasi menggunakan DevTools dalam profile mode.
+   - Jelaskan secara singkat hasil pengukuran performa sebelum dan sesudah optimasi.
